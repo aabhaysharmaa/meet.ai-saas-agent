@@ -14,6 +14,15 @@ export const metadata: Metadata = {
   icons: "/logo.svg"
 };
 
+/**
+ * Application root layout that establishes global HTML structure and provides TRPC context.
+ *
+ * Wraps the app's UI with the TRPC React provider, sets the page language to English, and
+ * applies the global font and antialiasing to the document body.
+ *
+ * @param children - React nodes rendered as the document body content
+ * @returns The root HTML structure for the application
+ */
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,4 +40,3 @@ export default function RootLayout({
     </TRPCReactProvider>
   );
 }
-
