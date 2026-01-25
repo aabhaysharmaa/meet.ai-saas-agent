@@ -6,6 +6,15 @@ export const auth = betterAuth({
     emailAndPassword: {
         enabled: true
     },
+    socialProviders: {
+        github: {
+            clientId: process.env.BETTER_AUTH_GITHUB_CLIENT_ID!,
+            clientSecret: process.env.BETTER_AUTH_GITHUB_CLIENT_SECRET!
+        }, google: {
+            clientId: process.env.BETTER_AUTH_GOOGLE_CLIENT_ID!,
+            clientSecret: process.env.BETTER_AUTH_GOOGLE_CLIENT_SECRET!
+        }
+    },
     database: drizzleAdapter(db, {
         provider: "pg",
         schema: {
