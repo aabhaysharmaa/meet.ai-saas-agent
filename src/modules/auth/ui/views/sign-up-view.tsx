@@ -15,21 +15,21 @@ import {
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2, OctagonAlertIcon } from "lucide-react";
+import { OctagonAlertIcon } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 import { FcGoogle } from "react-icons/fc";
+import * as z from "zod";
 const font = Poppins({
 	subsets: ['latin'],
 	weight: ['600']
 })
 
-import { ImGithub } from "react-icons/im";
-import { Poppins } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { Poppins } from "next/font/google";
+import { ImGithub } from "react-icons/im";
+import { useRouter } from "next/navigation";
 const formSchema = z.object(({
 	name: z.string().min(1, "Name cannot be empty"),
 	email: z.email(),
@@ -63,11 +63,24 @@ export const SignUpView = () => {
 			name: data.name,
 			email: data.email,
 			password: data.password,
+			callbackURL: "/"
 		}, {
 			onSuccess: () => {
 				setIsPending(false)
 				router.push("/")
 			}, onError: (err) => {
+				setError(err.error.message)
+				setIsPending(false)
+			}
+		})
+	}
+	const handleSocial = (provider: "google" | "github") => {
+		setIsPending(true)
+		setError("")
+		authClient.signIn.social({
+			provider
+		}, {
+			onError: (err) => {
 				setError(err.error.message)
 				setIsPending(false)
 			}
@@ -84,7 +97,7 @@ export const SignUpView = () => {
 									<h1 className="text-2xl font-bold">Create an account</h1>
 									<p className="text-muted-foreground text-balance">Start a new journey </p>
 								</div>
-								<div className="grid gap-3">
+								<div className="grid gap-y-6">
 									<FormField
 										name="name"
 										control={form.control}
@@ -147,21 +160,21 @@ export const SignUpView = () => {
 									</Alert>
 								)}
 								<Button className="" disabled={isPending}>
-									{isPending ? <Loader2 className="size-5 animate-spin" /> : "Create an account"}
+									Create an account
 								</Button>
 								<div className="after-border-border relative text-center text-sm after:absolute after:top-1/2 after:flex after:border-t after:z-0 after:items-center after:inset-0 after">
 									<span className="w-full bg-card text-muted-foreground z-10 relative px-2 ">Or Continue with</span>
 								</div>
 								<div className="flex flex-row gap-6 items-center justify-center w-full">
-									<Button variant="outline" type="button" className="w-1/2">
+									<Button onClick={() => handleSocial("google")} variant="outline" type="button" className="w-1/2">
 										<FcGoogle calcMode="size-5" />
 									</Button>
-									<Button variant="outline" type="button" className="w-1/2">
+									<Button onClick={() => handleSocial("github")} variant="outline" type="button" className="w-1/2">
 										<ImGithub />
 									</Button>
 								</div>
-								<div className=" flex items-center justify-center gap-2">
-									<p>Already have an account</p>
+								<div className="flex items-center justify-center gap-2">
+									<p> have an account</p>
 									<Link href="/sign-in" className="underline underline-offset-4">
 										Sign In
 									</Link>
