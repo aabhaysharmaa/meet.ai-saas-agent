@@ -10,7 +10,7 @@ export const HomeView = () => {
 		</div>
 	}
 	return (
-		<div className='text-white'>
+		<div className='text-white h-screen'>
 			{JSON.stringify(session.user)}
 		</div>
 	)

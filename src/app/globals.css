@@ -2,10 +2,7 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
-/*
-html , body , :root {
-   background-color : #798777
-} */
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
