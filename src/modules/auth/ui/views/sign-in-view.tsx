@@ -121,7 +121,7 @@ export const SignInView = () => {
 								{!!error && (
 									<Alert className="bg-destructive/10 border-none">
 										<OctagonAlertIcon className="size-4 text-destructive/10" />
-										<AlertTitle>{error}</AlertTitle>.
+										<AlertTitle>{error}</AlertTitle>
 									</Alert>
 								)}
 								<Button type="submit" disabled={isPending} className="w-full">
@@ -149,11 +149,11 @@ export const SignInView = () => {
 							</div>
 						</form>
 					</Form>
-					<div className="bg-radial from-green-700 to-green-900 relative hidden md:flex flex-col gap-y-6
+					<div className="bg-radial from-sidebar-accent to-sidebar relative hidden md:flex flex-col gap-y-6
 					 items-center justify-center
 					">
 						<img src={"/logo.svg"} alt="image" className="h-23 w-23" />
-						<p className={cn("text-2xl font-semibold text-green-200", font.className)}>MEET.AI</p>
+						<p className={cn("text-2xl font-semibold text-green-200", font.className)}>Meet.AI</p>
 					</div>
 				</CardContent>
 			</Card>

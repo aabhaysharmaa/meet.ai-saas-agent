@@ -182,9 +182,9 @@ export const SignUpView = () => {
 							</div>
 						</form>
 					</Form>
-					<div className="hidden md:flex flex-col bg-radial space-y-6 from-green-700 to-green-900 items-center justify-center">
+					<div className="hidden md:flex flex-col bg-radial space-y-6 from-sidebar-accent to-sidebar items-center justify-center">
 						<img src="/logo.svg" alt="logo" className="size-23" />
-						<p className={cn("text-2xl  font-semibold text-green-200", font.className)}>MEET.AI</p>
+						<p className={cn("text-2xl  font-semibold text-green-200", font.className)}>Meet.AI</p>
 					</div>
 				</CardContent>
 			</Card>
