@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { TRPCReactProvider } from "@/trpc/client";
 
 const inter = Inter({
   variable: "--font-geist-sans",
@@ -10,7 +11,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "MEET AI",
   description: "Meet-ai ai video calling app - saas ",
-  icons : "/logo.svg"
+  icons: "/logo.svg"
 };
 
 export default function RootLayout({
@@ -19,12 +20,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${inter.className}  antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <TRPCReactProvider>
+      <html lang="en">
+        <body
+          className={`${inter.className}  antialiased`}
+        >
+          {children}
+        </body>
+      </html>
+    </TRPCReactProvider>
   );
 }
+
