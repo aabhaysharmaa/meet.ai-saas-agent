@@ -10,12 +10,17 @@ export const AgentView = () => {
 	const { data } = useSuspenseQuery(trpc.agents.getMany.queryOptions())
 
 	return (
-		<div>{JSON.stringify(data, null, 2)}</div>
+		<div>
+			{JSON.stringify(data, null, 2)}</div>
 	)
 }
 
 export const AgentsViewLoading = () => {
-	return <LoadingState title="Loading Agents" description="This mat take a few seconds" />
+	return (
+		<LoadingState
+			title="Loading Agents"
+			description="This mat take a few seconds" />
+	)
 }
 
 export const AgentsViewError = () => {
