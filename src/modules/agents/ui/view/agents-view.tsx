@@ -1,16 +1,18 @@
 "use client";
+import { EmptyState } from "@/components/empty-state";
 import { ErrorState } from "@/components/error-state";
 import { LoadingState } from "@/components/loading-state";
 import { useTRPC } from "@/trpc/client";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { DataTable } from "../components/data-table";
-import { columns } from "../components/column";
-import { EmptyState } from "@/components/empty-state";
 import { useAgentsFilters } from "../../hooks/use-agents-filters";
+import { columns } from "../components/column";
 import { DataPagination } from "../components/data-pagination";
+import { DataTable } from "../components/data-table";
+import { useRouter } from "next/navigation";
 
 export const AgentView = () => {
 	const [filters, setFilters] = useAgentsFilters();
+	const router = useRouter();
 	const trpc = useTRPC();
 	const { data } = useSuspenseQuery(trpc.agents.getMany.queryOptions({
 		...filters
@@ -20,6 +22,7 @@ export const AgentView = () => {
 			<DataTable
 				data={data.items}
 				columns={columns}
+				onRowClick={(row) => router.push(`/agents/${row.id}`)}
 			/>
 			<DataPagination
 				page={filters.page}
