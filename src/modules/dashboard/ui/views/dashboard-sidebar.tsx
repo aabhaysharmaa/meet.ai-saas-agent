@@ -1,4 +1,5 @@
 "use client";
+
 import { Separator } from "@/components/ui/separator";
 import {
 	Sidebar,
@@ -49,7 +50,7 @@ const DashboardSidebar = () => {
 	const pathname = usePathname();
 	return (
 		<Sidebar className="">
-			<SidebarHeader className="text-sidebar-accent-foreground " >
+			<SidebarHeader className="text-sidebar-accent-foreground" >
 				<Link href={"/"} className="flex items-center gap-2 px-2 pt-2">
 					<Image src={"/logo.svg"} height={36} width={36} alt="meet.ai" />
 					<p className={cn("text-2xl font-semibold", font.className)}>Meet.AI</p>
