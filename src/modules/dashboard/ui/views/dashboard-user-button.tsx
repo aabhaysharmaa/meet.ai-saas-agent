@@ -1,3 +1,4 @@
+"use client";
 import { GeneratedAvatar } from "@/components/generated-avatar";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
@@ -26,13 +27,13 @@ import { ChevronDownIcon, CreditCardIcon, LogOutIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 
 export const DashboardUserButton = () => {
 	const router = useRouter();
 	const { data, isPending } = authClient.useSession();
 	const isMobile = useIsMobile();
-	console.log("User Image", data?.user.image)
-	console.log("User", data)
+
 	const onLogOut = () => {
 		authClient.signOut({
 			fetchOptions: {
@@ -43,6 +44,13 @@ export const DashboardUserButton = () => {
 		})
 	}
 
+	const [mounted, setMounted] = useState(false)
+
+	useEffect(() => {
+		// eslint-disable-next-line react-hooks/set-state-in-effect
+		setMounted(true)
+	}, [])
+	if (!mounted) return null
 	if (isPending || !data?.user) {
 		return null
 	}
