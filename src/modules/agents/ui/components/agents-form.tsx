@@ -26,7 +26,7 @@ export const AgentForm = ({ onCancel, onSuccess, initialValues }: AgentFormProps
 		trpc.agents.create.mutationOptions({
 			onSuccess: async () => {
 				await queryClient.invalidateQueries(
-					trpc.agents.getMany.queryOptions()
+					trpc.agents.getMany.queryOptions({})
 				);
 				if (initialValues?.id) {
 					await queryClient.invalidateQueries(
@@ -66,6 +66,7 @@ export const AgentForm = ({ onCancel, onSuccess, initialValues }: AgentFormProps
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
 				<GeneratedAvatar
+					// eslint-disable-next-line react-hooks/incompatible-library
 					seed={form.watch("name")}
 					variant="botttsNeutral"
 					className="border size-16"
