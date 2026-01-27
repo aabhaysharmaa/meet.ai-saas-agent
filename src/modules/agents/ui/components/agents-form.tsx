@@ -10,11 +10,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import { AgentGetOne } from "../../types";
 
 interface AgentFormProps {
 	onSuccess?: () => void;
 	onCancel?: () => void;
-	initialValues?: Record<string, string>
+	initialValues?: AgentGetOne[0]
 }
 
 export const AgentForm = ({ onCancel, onSuccess, initialValues }: AgentFormProps) => {
