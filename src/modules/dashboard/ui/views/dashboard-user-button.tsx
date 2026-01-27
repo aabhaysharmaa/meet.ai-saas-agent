@@ -31,6 +31,8 @@ export const DashboardUserButton = () => {
 	const router = useRouter();
 	const { data, isPending } = authClient.useSession();
 	const isMobile = useIsMobile();
+	console.log("User Image", data?.user.image)
+	console.log("User", data)
 	const onLogOut = () => {
 		authClient.signOut({
 			fetchOptions: {
@@ -68,13 +70,13 @@ export const DashboardUserButton = () => {
 						<DrawerDescription>{data.user.email}</DrawerDescription>
 					</DrawerHeader>
 					<DrawerFooter>
-						<Button variant="outline" onClick={() =>{}}>
+						<Button variant="outline" onClick={() => { }}>
 							Billing
-							<CreditCardIcon className="size-4 text-black"/>
+							<CreditCardIcon className="size-4 text-black" />
 						</Button>
 						<Button variant="outline" onClick={onLogOut}>
 							logout
-							<LogOutIcon className="size-4"/>
+							<LogOutIcon className="size-4" />
 						</Button>
 					</DrawerFooter>
 				</DrawerContent>
