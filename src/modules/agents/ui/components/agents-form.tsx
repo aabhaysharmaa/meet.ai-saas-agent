@@ -15,7 +15,7 @@ import { AgentGetOne } from "../../types";
 interface AgentFormProps {
 	onSuccess?: () => void;
 	onCancel?: () => void;
-	initialValues?: AgentGetOne[0]
+	initialValues?: AgentGetOne
 }
 
 export const AgentForm = ({ onCancel, onSuccess, initialValues }: AgentFormProps) => {
@@ -24,6 +24,24 @@ export const AgentForm = ({ onCancel, onSuccess, initialValues }: AgentFormProps
 
 	const createAgent = useMutation(
 		trpc.agents.create.mutationOptions({
+			onSuccess: async () => {
+				await queryClient.invalidateQueries(
+					trpc.agents.getMany.queryOptions({})
+				);
+				// TODO : Invalidate free tier usage
+				onSuccess?.()
+			},
+
+			onError: (error) => {
+				toast.error(error.message)
+
+				// TODO : check if error code is "FORBIDDEN" ,  redirect  to '/upgrade'
+			}
+		})
+	)
+
+	const updateAgent = useMutation(
+		trpc.agents.update.mutationOptions({
 			onSuccess: async () => {
 				await queryClient.invalidateQueries(
 					trpc.agents.getMany.queryOptions({})
@@ -43,7 +61,6 @@ export const AgentForm = ({ onCancel, onSuccess, initialValues }: AgentFormProps
 			}
 		})
 	)
-
 	const form = useForm<z.infer<typeof agentInsertSchema>>({
 		resolver: zodResolver(agentInsertSchema),
 		defaultValues: {
@@ -53,11 +70,11 @@ export const AgentForm = ({ onCancel, onSuccess, initialValues }: AgentFormProps
 	})
 
 	const isEdit = !!initialValues?.id
-	const isPending = createAgent.isPending;
+	const isPending = createAgent.isPending || updateAgent.isPending
 
 	const onSubmit = (values: z.infer<typeof agentInsertSchema>) => {
 		if (isEdit) {
-			console.log("TODO : updateAgents")
+			updateAgent.mutate({ ...values, id: initialValues.id })
 		} else {
 			createAgent.mutate(values);
 		}
